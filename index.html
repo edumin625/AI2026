@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 리터러시 포트폴리오 - 김경민</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#3b82f6',
+                            purple: '#a855f7'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@100;400;700;900&display=swap');
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #60a5fa, #3b82f6, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dark .text-gradient {
+            background: linear-gradient(to right, #60a5fa, #ffffff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.1; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(1.1); }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse-slow 10s ease-in-out infinite;
+        }
+
+        .modal-active {
+            display: flex !important;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Glassmorphism improvements */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Hover elevation */
+        .assignment-card:hover {
+            transform: translateY(-8px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-[#020617] text-slate-900 dark:text-slate-100 selection:bg-blue-500/30 overflow-x-hidden">
+
+    <!-- Background Orbs -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-400/20 dark:bg-blue-600/10 rounded-full blur-[120px] animate-pulse-slow"></div>
+        <div class="absolute bottom-[10%] right-[-5%] w-[35%] h-[35%] bg-purple-400/20 dark:bg-purple-600/10 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                    <i data-lucide="cpu" class="text-white w-5 h-5"></i>
+                </div>
+                <span class="font-bold text-xl tracking-tight">AI Literacy</span>
+            </div>
+            
+            <div class="flex items-center space-x-4 md:space-x-8">
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-500 dark:text-slate-400">
+                    <a href="#home" class="hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Home</a>
+                    <a href="#assignments" class="hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Assignments</a>
+                    <a href="#author" class="hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Author</a>
+                </div>
+                
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="p-2 rounded-xl bg-slate-200/50 dark:bg-white/5 border border-slate-300/50 dark:border-white/10 hover:bg-slate-300 dark:hover:bg-white/10 transition-all">
+                    <i id="theme-toggle-dark-icon" data-lucide="moon" class="w-5 h-5 hidden dark:block text-blue-400"></i>
+                    <i id="theme-toggle-light-icon" data-lucide="sun" class="w-5 h-5 block dark:hidden text-amber-500"></i>
+                </button>
+
+                <button class="hidden sm:block px-5 py-2 rounded-full bg-blue-600 text-white text-sm font-medium hover:bg-blue-500 transition-all">
+                    Contact
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6">
+        <div class="container mx-auto text-center relative z-10">
+            <div class="inline-block px-4 py-1.5 mb-6 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-widest uppercase">
+                Human-AI Collaboration
+            </div>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight tracking-tight">
+                <span class="text-gradient">
+                    현실의 문제를 해결하고<br>스토리로 표현
+                </span>
+            </h1>
+            <p class="max-w-2xl mx-auto text-slate-600 dark:text-slate-400 text-lg md:text-xl leading-relaxed mb-12">
+                생성형 AI와 데이터 분석을 통해 기술적 한계를 넘어 지능적인 혁신을 설계하고
+                인간의 창의성과 AI의 연산 능력이 만나는 지점, 'AI 리터러시의 이해' 포트폴리오
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                <a href="#assignments" class="w-full md:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-bold shadow-lg shadow-blue-600/20 transition-all flex items-center justify-center group">
+                    과제 탐색하기
+                    <i data-lucide="chevron-right" class="ml-2 group-hover:translate-x-1 transition-transform w-5 h-5"></i>
+                </a>
+                <button class="w-full md:w-auto px-8 py-4 bg-slate-200 dark:bg-white/5 hover:bg-slate-300 dark:hover:bg-white/10 border border-slate-300 dark:border-white/10 rounded-2xl font-bold transition-all text-slate-900 dark:text-white">
+                    교과목 개요 보기
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assignment Grid Section -->
+    <section id="assignments" class="py-24 px-6 relative">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">학기 과제 아카이브</h2>
+                    <p class="text-slate-600 dark:text-slate-400">총 10개의 프로젝트를 통해 쌓아온 AI 리터러시 역량입니다.</p>
+                </div>
+                <div class="text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-500/10 px-4 py-2 rounded-xl border border-blue-500/20">
+                    10 Projects Completed
+                </div>
+            </div>
+
+            <!-- Grid Container -->
+            <div id="assignment-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Cards will be injected by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Author Section -->
+    <section id="author" class="py-24 px-6 relative bg-gradient-to-b from-transparent to-blue-500/5 dark:to-blue-900/10">
+        <div class="container mx-auto">
+            <div class="max-w-4xl mx-auto rounded-[40px] border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-white/5 backdrop-blur-xl p-8 md:p-16 relative overflow-hidden">
+                <div class="absolute top-[-50%] right-[-10%] w-[60%] h-[120%] bg-blue-500/5 rounded-full blur-[100px]"></div>
+                
+                <div class="flex flex-col md:flex-row items-center gap-12 relative z-10">
+                    <div class="relative group">
+                        <div class="w-40 h-40 md:w-56 md:h-56 rounded-3xl bg-gradient-to-tr from-blue-500 to-purple-600 p-1 rotate-3 group-hover:rotate-0 transition-transform duration-500">
+                            <div class="w-full h-full bg-slate-100 dark:bg-slate-900 rounded-[22px] flex items-center justify-center overflow-hidden">
+                                <!-- Profile Image Applied -->
+                                <img src="https://i.pinimg.com/1200x/25/a4/3e/25a43e7cdf58e0982a1aeed234bebfca.jpg" alt="김경민 프로필" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center shadow-xl border-4 border-slate-50 dark:border-slate-950">
+                            <i data-lucide="brain-circuit" class="text-white w-7 h-7"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 text-center md:text-left">
+                        <div class="inline-block px-3 py-1 mb-4 rounded-lg bg-blue-500/5 border border-blue-500/10 text-xs font-bold text-blue-600 dark:text-blue-400">
+                            Educator & Course Designer
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black mb-2">김경민</h2>
+                        <p class="text-lg text-blue-600 dark:text-blue-400 font-medium mb-6">AI융합교육원</p>
+                        
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+                            "AI 기본 교육에 관심을 가지고 초중고 학생 및 교사, 비전공 대학생, 일반인을 위한 교육과정을 설계하고 있습니다. 
+                            기술이 복잡해질수록 교육은 더 명확하고 인간 중심적이어야 한다고 믿습니다."
+                        </p>
+                        
+                        <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                            <div class="flex items-center space-x-3 bg-slate-200/50 dark:bg-white/5 px-4 py-3 rounded-2xl border border-slate-300 dark:border-white/5">
+                                <i data-lucide="mail" class="text-blue-600 dark:text-blue-400 w-5 h-5"></i>
+                                <span class="text-sm font-mono text-slate-700 dark:text-slate-300">pnumin@pusan.ac.kr</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-slate-200 dark:border-white/5">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex flex-col items-center md:items-start">
+                <div class="flex items-center space-x-2 mb-4">
+                    <div class="w-6 h-6 bg-blue-600 rounded-md flex items-center justify-center">
+                        <i data-lucide="cpu" class="text-white w-3.5 h-3.5"></i>
+                    </div>
+                    <span class="font-bold text-lg">AI Literacy Portfolio</span>
+                </div>
+                <p class="text-slate-500 text-sm">© 2024 Kim Kyungmin. All rights reserved.</p>
+            </div>
+            
+            <div class="flex space-x-12">
+                <div>
+                    <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Contact</h4>
+                    <ul class="text-slate-500 text-sm space-y-2">
+                        <li>pnumin@pusan.ac.kr</li>
+                        <li>AI Convergence Institute</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Location</h4>
+                    <ul class="text-slate-500 text-sm space-y-2">
+                        <li>Pusan National Univ.</li>
+                        <li>Busan, South Korea</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Container -->
+    <div id="modal" class="fixed inset-0 z-[100] hidden items-center justify-center px-6">
+        <div class="absolute inset-0 bg-slate-900/80 dark:bg-slate-950/90 backdrop-blur-md" onclick="closeModal()"></div>
+        <div class="relative w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[32px] p-8 md:p-12 shadow-2xl overflow-hidden">
+            <button class="absolute top-6 right-6 p-2 rounded-full bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 transition-colors" onclick="closeModal()">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <div class="flex items-center space-x-4 mb-8">
+                <div id="modal-icon-container" class="p-4 bg-blue-600/10 rounded-2xl text-blue-600 dark:text-blue-400">
+                    <!-- Icon will be injected -->
+                </div>
+                <div>
+                    <span id="modal-assignment-id" class="text-xs font-mono text-blue-600 dark:text-blue-400 font-bold tracking-widest uppercase"></span>
+                    <h2 id="modal-title" class="text-3xl font-bold text-slate-900 dark:text-white"></h2>
+                </div>
+            </div>
+
+            <div class="space-y-6 mb-10">
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Used Technology</h4>
+                    <div id="modal-tools" class="flex gap-2">
+                        <!-- Tools will be injected -->
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Project Overview</h4>
+                    <p id="modal-summary" class="text-slate-700 dark:text-slate-300 text-lg leading-relaxed"></p>
+                </div>
+            </div>
+
+            <div class="flex gap-4">
+                <!-- Result View Button in Modal -->
+                <button id="modal-result-btn" class="flex-1 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-bold transition-all shadow-lg shadow-blue-500/20">결과물 보기</button>
+                <button class="px-8 py-4 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 rounded-2xl font-bold transition-all text-slate-900 dark:text-white" onclick="closeModal()">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Section -->
+    <script>
+        // Assignment Data with Color Themes and Links
+        const assignments = [
+            { 
+                id: "01", 
+                title: "AI의 이해", 
+                tool: "NotebookLM", 
+                summary: "AI의 정의와 역사, 생성형 AI의 개념에 대해 Google NotebookLM을 활용하여 자료를 수집하고 핵심 내용을 정리하는 실습.", 
+                icon: "brain", 
+                color: "blue", 
+                hex: "#3b82f6",
+                link: "./02/index.html" // Link for Assignment 01
+            },
+            { id: "02", title: "데이터 시각화와 스토리텔링", tool: "Python, Matplotlib", summary: "공공 데이터를 분석하고 인사이트를 도출하여 시각적으로 설득력 있는 리포트 작성.", icon: "bar-chart-3", color: "purple", hex: "#a855f7" },
+            { id: "03", title: "AI 이미지 생성과 크리에이티브", tool: "Midjourney, DALL-E 3", summary: "텍스트 투 이미지 기술을 활용하여 추상적 개념을 시각화하고 디지털 에셋 생성.", icon: "image", color: "pink", hex: "#ec4899" },
+            { id: "04", title: "노코딩 데이터 분석 환경 구축", tool: "Google Colab, Pandas", summary: "비전공자도 쉽게 접근할 수 있는 클라우드 기반 데이터 분석 환경 설정 및 기초 라이브러리 활용.", icon: "database", color: "emerald", hex: "#10b981" },
+            { id: "05", title: "AI 윤리와 책임 있는 활용", tool: "Ethics Framework", summary: "AI 모델의 편향성, 저작권, 개인정보 보호 이슈를 분석하고 해결 방안 토론.", icon: "lightbulb", color: "amber", hex: "#f59e0b" },
+            { id: "06", title: "자동화 워크플로우 설계", tool: "Zapier, Make", summary: "일상적인 업무 및 학습 과정을 AI와 연동하여 자동화하는 시스템 기획.", icon: "cpu", color: "rose", hex: "#f43f5e" },
+            { id: "07", title: "자연어 처리 기반 텍스트 분석", tool: "Python, NLTK", summary: "대규모 텍스트 데이터에서 키워드를 추출하고 감성 분석을 수행하는 기술 실습.", icon: "brain-circuit", color: "cyan", hex: "#06b6d4" },
+            { id: "08", title: "맞춤형 AI 챗봇 디자인", tool: "GPTs, Custom Instructions", summary: "특정 목적(교육, 상담 등)에 최적화된 지식 베이스를 갖춘 나만의 챗봇 제작.", icon: "users", color: "indigo", hex: "#6366f1" },
+            { id: "09", title: "AI 기반 문제 해결 프로젝트", tool: "Multi-AI Tools", summary: "실제 지역 사회나 학교의 문제를 정의하고 AI 기술을 결합하여 해결책 제안.", icon: "book-open", color: "sky", hex: "#0ea5e9" },
+            { id: "10", title: "최종 포트폴리오: AI 리터러시", tool: "Notion, React", summary: "학기 동안의 결과물을 통합하여 나만의 디지털 역량을 증명하는 포트폴리오 완성.", icon: "code", color: "violet", hex: "#8b5cf6" }
+        ];
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white/80', 'dark:bg-slate-950/80', 'backdrop-blur-lg', 'border-slate-200', 'dark:border-white/10', 'py-4');
+                nav.classList.remove('border-transparent', 'py-6');
+            } else {
+                nav.classList.remove('bg-white/80', 'dark:bg-slate-950/80', 'backdrop-blur-lg', 'border-slate-200', 'dark:border-white/10', 'py-4');
+                nav.classList.add('border-transparent', 'py-6');
+            }
+        });
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Render Assignment Cards
+        const grid = document.getElementById('assignment-grid');
+        assignments.forEach(task => {
+            const card = document.createElement('div');
+            card.className = `assignment-card group relative rounded-[32px] p-px transition-all duration-500 cursor-pointer`;
+            card.style.background = `rgba(255, 255, 255, 0.1)`;
+            card.onclick = () => openModal(task);
+            
+            // Generate tailwind-like color variants via inline style for hover border
+            card.addEventListener('mouseenter', () => {
+                card.style.background = `linear-gradient(135deg, ${task.hex}88, #a855f788)`;
+                card.style.boxShadow = `0 10px 40px -10px ${task.hex}44`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.background = `rgba(255, 255, 255, 0.1)`;
+                card.style.boxShadow = `none`;
+            });
+
+            card.innerHTML = `
+                <div class="relative h-full glass-card rounded-[31px] p-8 flex flex-col items-start overflow-hidden">
+                    <!-- Dynamic Accent Glow -->
+                    <div class="absolute -top-24 -right-24 w-48 h-48 rounded-full blur-[80px] opacity-20 group-hover:opacity-50 transition-opacity duration-700" style="background: ${task.hex}"></div>
+                    <div class="absolute -bottom-24 -left-24 w-48 h-48 rounded-full blur-[80px] opacity-10 group-hover:opacity-30 transition-opacity duration-700" style="background: ${task.hex}"></div>
+                    
+                    <div class="flex justify-between items-start w-full mb-6 relative z-10">
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-black font-mono tracking-[0.2em] uppercase opacity-50 mb-1" style="color: ${task.hex}">Task Entry</span>
+                            <span class="text-xs font-bold font-mono tracking-tighter opacity-80 uppercase">No. ${task.id}</span>
+                        </div>
+                        <div class="p-3 rounded-2xl transition-all duration-500 group-hover:scale-110 shadow-lg" style="background: ${task.hex}22; color: ${task.hex}; border: 1px solid ${task.hex}33">
+                            <i data-lucide="${task.icon}" class="w-6 h-6"></i>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mb-3 relative z-10 group-hover:text-slate-900 dark:group-hover:text-white transition-colors text-slate-900 dark:text-white">${task.title}</h3>
+                    <div class="flex items-center space-x-2 mb-4 relative z-10">
+                        <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border" style="background: ${task.hex}11; color: ${task.hex}; border-color: ${task.hex}33">${task.tool}</span>
+                    </div>
+                    
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 line-clamp-2 relative z-10">
+                        ${task.summary}
+                    </p>
+                    
+                    <div class="mt-auto pt-6 w-full flex justify-between items-center relative z-10 border-t border-slate-200 dark:border-white/5">
+                        <span class="text-xs font-black opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0 uppercase" style="color: ${task.hex}">
+                            Exploration <i data-lucide="arrow-right" class="inline w-3 h-3 ml-1"></i>
+                        </span>
+                        <!-- Plus Button Section -->
+                        <div id="plus-btn-${task.id}" class="w-10 h-10 rounded-xl border border-slate-200 dark:border-white/10 flex items-center justify-center group-hover:border-transparent transition-all overflow-hidden relative">
+                             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: ${task.hex}"></div>
+                             <i data-lucide="plus" class="w-4 h-4 relative z-10 group-hover:text-white group-hover:rotate-90 transition-all duration-500"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+
+            // Logic for the "+" icon click to jump to link
+            if (task.link) {
+                const plusBtn = document.getElementById(`plus-btn-${task.id}`);
+                plusBtn.onclick = (e) => {
+                    e.stopPropagation(); // Prevent modal from opening
+                    window.location.href = task.link;
+                };
+            }
+        });
+
+        // Modal Functions
+        function openModal(task) {
+            const modal = document.getElementById('modal');
+            document.getElementById('modal-assignment-id').innerText = `ASSIGNMENT ${task.id}`;
+            document.getElementById('modal-title').innerText = task.title;
+            document.getElementById('modal-summary').innerText = task.summary;
+            document.getElementById('modal-icon-container').innerHTML = `<i data-lucide="${task.icon}" class="w-6 h-6"></i>`;
+            document.getElementById('modal-icon-container').style.color = task.hex;
+            document.getElementById('modal-icon-container').style.background = `${task.hex}11`;
+            
+            const toolsContainer = document.getElementById('modal-tools');
+            toolsContainer.innerHTML = `<span class="px-3 py-1.5 rounded-lg text-sm font-bold" style="background: ${task.hex}11; color: ${task.hex}; border: 1px solid ${task.hex}33">${task.tool}</span>`;
+            
+            // Handle result button click in modal
+            const resultBtn = document.getElementById('modal-result-btn');
+            if (task.link) {
+                resultBtn.onclick = () => {
+                    window.location.href = task.link;
+                };
+                resultBtn.style.display = 'block';
+            } else {
+                resultBtn.style.display = 'none';
+            }
+
+            modal.classList.add('modal-active');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('modal-active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Check for saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.classList.remove('dark');
+        }
+
+        lucide.createIcons();
+    </script>
+</body>
+</html>
