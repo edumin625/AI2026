@@ -175,7 +175,6 @@
                     <div class="relative group">
                         <div class="w-40 h-40 md:w-56 md:h-56 rounded-3xl bg-gradient-to-tr from-blue-500 to-purple-600 p-1 rotate-3 group-hover:rotate-0 transition-transform duration-500">
                             <div class="w-full h-full bg-slate-100 dark:bg-slate-900 rounded-[22px] flex items-center justify-center overflow-hidden">
-                                <!-- Profile Image Applied -->
                                 <img src="https://i.pinimg.com/1200x/25/a4/3e/25a43e7cdf58e0982a1aeed234bebfca.jpg" alt="김경민 프로필" class="w-full h-full object-cover">
                             </div>
                         </div>
@@ -272,7 +271,6 @@
             </div>
 
             <div class="flex gap-4">
-                <!-- Result View Button in Modal -->
                 <button id="modal-result-btn" class="flex-1 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-bold transition-all shadow-lg shadow-blue-500/20">결과물 보기</button>
                 <button class="px-8 py-4 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 rounded-2xl font-bold transition-all text-slate-900 dark:text-white" onclick="closeModal()">닫기</button>
             </div>
@@ -291,9 +289,18 @@
                 icon: "brain", 
                 color: "blue", 
                 hex: "#3b82f6",
-                link: "./02/index.html" // Link for Assignment 01
+                link: "./02/index.html"
             },
-            { id: "02", title: "데이터 시각화와 스토리텔링", tool: "Python, Matplotlib", summary: "공공 데이터를 분석하고 인사이트를 도출하여 시각적으로 설득력 있는 리포트 작성.", icon: "bar-chart-3", color: "purple", hex: "#a855f7" },
+            { 
+                id: "02", 
+                title: "데이터 스토리텔링", 
+                tool: "Gemini 스토리북", 
+                summary: "공공 데이터를 분석하고 인사이트를 도출하여 시각적으로 설득력 있는 리포트 작성하여 스토리북으로 만들기", 
+                icon: "bar-chart-3", 
+                color: "purple", 
+                hex: "#a855f7",
+                link: "./03/index.html" // Link for Assignment 02
+            },
             { id: "03", title: "AI 이미지 생성과 크리에이티브", tool: "Midjourney, DALL-E 3", summary: "텍스트 투 이미지 기술을 활용하여 추상적 개념을 시각화하고 디지털 에셋 생성.", icon: "image", color: "pink", hex: "#ec4899" },
             { id: "04", title: "노코딩 데이터 분석 환경 구축", tool: "Google Colab, Pandas", summary: "비전공자도 쉽게 접근할 수 있는 클라우드 기반 데이터 분석 환경 설정 및 기초 라이브러리 활용.", icon: "database", color: "emerald", hex: "#10b981" },
             { id: "05", title: "AI 윤리와 책임 있는 활용", tool: "Ethics Framework", summary: "AI 모델의 편향성, 저작권, 개인정보 보호 이슈를 분석하고 해결 방안 토론.", icon: "lightbulb", color: "amber", hex: "#f59e0b" },
@@ -327,6 +334,13 @@
         // Initialize Lucide Icons
         lucide.createIcons();
 
+        // Safe Navigation Function
+        function safeNavigate(url) {
+            if (url && typeof url === 'string' && url.trim() !== '') {
+                window.location.href = url;
+            }
+        }
+
         // Render Assignment Cards
         const grid = document.getElementById('assignment-grid');
         assignments.forEach(task => {
@@ -335,7 +349,6 @@
             card.style.background = `rgba(255, 255, 255, 0.1)`;
             card.onclick = () => openModal(task);
             
-            // Generate tailwind-like color variants via inline style for hover border
             card.addEventListener('mouseenter', () => {
                 card.style.background = `linear-gradient(135deg, ${task.hex}88, #a855f788)`;
                 card.style.boxShadow = `0 10px 40px -10px ${task.hex}44`;
@@ -347,7 +360,6 @@
 
             card.innerHTML = `
                 <div class="relative h-full glass-card rounded-[31px] p-8 flex flex-col items-start overflow-hidden">
-                    <!-- Dynamic Accent Glow -->
                     <div class="absolute -top-24 -right-24 w-48 h-48 rounded-full blur-[80px] opacity-20 group-hover:opacity-50 transition-opacity duration-700" style="background: ${task.hex}"></div>
                     <div class="absolute -bottom-24 -left-24 w-48 h-48 rounded-full blur-[80px] opacity-10 group-hover:opacity-30 transition-opacity duration-700" style="background: ${task.hex}"></div>
                     
@@ -374,7 +386,6 @@
                         <span class="text-xs font-black opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0 uppercase" style="color: ${task.hex}">
                             Exploration <i data-lucide="arrow-right" class="inline w-3 h-3 ml-1"></i>
                         </span>
-                        <!-- Plus Button Section -->
                         <div id="plus-btn-${task.id}" class="w-10 h-10 rounded-xl border border-slate-200 dark:border-white/10 flex items-center justify-center group-hover:border-transparent transition-all overflow-hidden relative">
                              <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: ${task.hex}"></div>
                              <i data-lucide="plus" class="w-4 h-4 relative z-10 group-hover:text-white group-hover:rotate-90 transition-all duration-500"></i>
@@ -384,12 +395,11 @@
             `;
             grid.appendChild(card);
 
-            // Logic for the "+" icon click to jump to link
             if (task.link) {
                 const plusBtn = document.getElementById(`plus-btn-${task.id}`);
                 plusBtn.onclick = (e) => {
-                    e.stopPropagation(); // Prevent modal from opening
-                    window.location.href = task.link;
+                    e.stopPropagation();
+                    safeNavigate(task.link);
                 };
             }
         });
@@ -407,12 +417,9 @@
             const toolsContainer = document.getElementById('modal-tools');
             toolsContainer.innerHTML = `<span class="px-3 py-1.5 rounded-lg text-sm font-bold" style="background: ${task.hex}11; color: ${task.hex}; border: 1px solid ${task.hex}33">${task.tool}</span>`;
             
-            // Handle result button click in modal
             const resultBtn = document.getElementById('modal-result-btn');
-            if (task.link) {
-                resultBtn.onclick = () => {
-                    window.location.href = task.link;
-                };
+            if (task.link && task.link.trim() !== '') {
+                resultBtn.onclick = () => safeNavigate(task.link);
                 resultBtn.style.display = 'block';
             } else {
                 resultBtn.style.display = 'none';
@@ -429,7 +436,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Check for saved theme
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') {
             document.documentElement.classList.remove('dark');
