@@ -2,16 +2,17 @@
 [Palette Choice]: Vibrant Contrast (Deep Navy #1E3A8A, Bright Orange #F97316, Vivid Cyan #06B6D4, Alert Red #EF4444)
 [Confirmation]: I explicitly confirm that NEITHER Mermaid JS NOR SVG were used anywhere in the output.
 [Plan Summary]:
-1. Header/Hero: Establishes the core theme of Busan's demographic shift with a newly added Home button.
-2. The Dead Cross: Visualizes the diverging trends of total population and elderly population.
-3. Aging Velocity: Tracks the rapid growth of the elderly population percentage.
-4. District Disparity: Compares absolute elderly numbers (Top 5) and highlights severe aging proportions in at-risk downtown districts.
-5. Strategic Implications: Actionable insights based on the data.
+1. Header/Hero: Establishes the core theme of Busan's demographic shift with a Home button (Left) and a Video button (Right).
+2. Video Modal: Added a hidden modal overlay that displays './99.mp4' when triggered.
+3. The Dead Cross: Visualizes the diverging trends of total population and elderly population. Includes a 'Storybook' button.
+4. Aging Velocity: Tracks the rapid growth of the elderly population percentage.
+5. District Disparity: Compares absolute elderly numbers (Top 5) and highlights severe aging proportions in at-risk downtown districts.
+6. Strategic Implications: Actionable insights based on the data.
 [Chart Choices]:
-- Total vs Elderly (Combo Bar/Line): Goal: Change. Justification: Clearly contrasts the decreasing total (bar) with the rising elderly subset (line) on dual axes. Chart.js (NO SVG).
-- Elderly Proportion (Area Line): Goal: Change. Justification: The filled area emphasizes the accumulating weight of the elderly demographic over time. Chart.js (NO SVG).
-- Top 5 Districts (Horizontal Bar): Goal: Compare. Justification: Best for clear ranking and reading of category names. Chart.js (NO SVG).
-- At-Risk Districts (Donut): Goal: Inform/Compare. Justification: Immediately communicates the critical part-to-whole ratio (>37%) in vulnerable areas. Chart.js (NO SVG).
+- Total vs Elderly (Combo Bar/Line): Chart.js (NO SVG).
+- Elderly Proportion (Area Line): Chart.js (NO SVG).
+- Top 5 Districts (Horizontal Bar): Chart.js (NO SVG).
+- At-Risk Districts (Donut): Chart.js (NO SVG).
 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -35,30 +36,78 @@ body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI",
 @media (min-width: 768px) {
     .chart-container { height: 380px; }
 }
+/* Modal Style */
+#videoModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    background: #000;
+    border-radius: 1rem;
+    overflow: hidden;
+}
 </style>
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased">
 
+<!-- 영상 팝업 모달 -->
+<div id="videoModal">
+    <div class="modal-content shadow-2xl">
+        <button onclick="closeVideo()" class="absolute top-4 right-4 z-20 bg-white/20 hover:bg-white/40 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all">✕</button>
+        <video id="mainVideo" class="w-full aspect-video" controls>
+            <source src="./99.mp4" type="video/mp4">
+            브라우저가 비디오 태그를 지원하지 않습니다.
+        </video>
+    </div>
+</div>
+
 <div class="max-w-6xl mx-auto px-4 py-8">
 
     <header class="bg-[#1E3A8A] rounded-3xl shadow-2xl p-8 md:p-12 mb-10 text-center relative overflow-hidden">
-        <!-- 홈 버튼 추가 -->
+        <!-- 홈 버튼 (좌측) -->
         <div class="absolute top-6 left-6 z-10">
             <a href="../index.html" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full transition-all duration-200 backdrop-blur-sm border border-white/20 font-medium">
                 <span class="text-xl">🏠</span>
-                <span>홈으로</span>
+                <span class="hidden sm:inline">홈으로</span>
             </a>
+        </div>
+
+        <!-- 영상보기 버튼 (우측) -->
+        <div class="absolute top-6 right-6 z-10">
+            <button onclick="openVideo()" class="flex items-center gap-2 bg-[#06B6D4] hover:bg-[#0891B2] text-white px-4 py-2 rounded-full transition-all duration-200 shadow-lg font-bold">
+                <span class="text-xl">🎬</span>
+                <span>영상보기</span>
+            </button>
         </div>
         
         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#06B6D4] via-[#F97316] to-[#EF4444]"></div>
-        <h1 class="text-3xl md:text-5xl font-extrabold text-white mt-4 mb-4 tracking-tight">부산광역시 인구 구조의<br><span class="text-[#F97316]">데드크로스(Dead Cross)</span></h1>
-        <p class="text-slate-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">2020년부터 2024년까지의 통계를 바탕으로 총인구 감소와 고령 인구의 폭발적 증가가 맞물린 부산의 인구 위기를 입체적으로 분석합니다.</p>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-white mt-8 mb-4 tracking-tight">부산광역시 인구 구조의<br><span class="text-[#F97316]">데드크로스(Dead Cross)</span></h1>
+        <p class="text-slate-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">2020년부터 2024년까지의 통계를 바탕으로 총인구 감소와 고령 인구의 폭발적 증가가 맞물린 부산의 인구 위기를 분석합니다.</p>
     </header>
 
     <section class="mb-12">
-        <div class="mb-6 px-2">
-            <h2 class="text-2xl font-bold text-[#1E3A8A] flex items-center gap-2"><span class="text-3xl">📉</span> 총인구 대비 고령 인구의 역전 현상</h2>
-            <p class="text-slate-600 mt-2">지난 5년간 부산의 전체 인구는 완만한 하락세를 보인 반면, 60세 이상 고령 인구는 14.5% 급증하며 도시 시스템의 지속 가능성을 위협하고 있습니다.</p>
+        <div class="mb-6 px-2 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div class="flex-1">
+                <h2 class="text-2xl font-bold text-[#1E3A8A] flex items-center gap-2"><span class="text-3xl">📉</span> 총인구 대비 고령 인구의 역전 현상</h2>
+                <p class="text-slate-600 mt-2">지난 5년간 부산의 전체 인구는 완만한 하락세를 보인 반면, 60세 이상 고령 인구는 14.5% 급증했습니다.</p>
+            </div>
+            <div class="flex-shrink-0">
+                <a href="https://gemini.google.com/share/5541d4e148b8" target="_blank" class="inline-flex items-center gap-2 bg-[#F97316] hover:bg-[#EA580C] text-white px-5 py-2.5 rounded-xl font-bold transition-colors shadow-lg shadow-orange-200">
+                    <span class="text-xl">📖</span>
+                    <span>스토리북보기</span>
+                </a>
+            </div>
         </div>
         
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -77,7 +126,7 @@ body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI",
                 <div class="bg-white rounded-2xl shadow-lg p-6 border-l-8 border-[#F97316]">
                     <p class="text-sm font-semibold text-slate-400 mb-1">고령 인구 증가 (5년간)</p>
                     <p class="text-4xl font-extrabold text-slate-800">+12.9<span class="text-xl font-medium">만 명</span></p>
-                    <p class="text-sm text-slate-500 mt-2">노년 부양비 및 사회적 비용 급증</p>
+                    <p class="text-sm text-slate-500 mt-2">노년 부양비 급증</p>
                 </div>
             </div>
         </div>
@@ -86,7 +135,7 @@ body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI",
     <section class="mb-12">
         <div class="mb-6 px-2">
             <h2 class="text-2xl font-bold text-[#1E3A8A] flex items-center gap-2"><span class="text-3xl">📈</span> 초고령 사회 진입 가속도</h2>
-            <p class="text-slate-600 mt-2">부산 시민 10명 중 3명 이상이 60세 이상입니다. 매년 1%p 이상씩 고령 비율이 상승하는 유례없는 속도를 기록 중입니다.</p>
+            <p class="text-slate-600 mt-2">부산 시민 10명 중 3명 이상이 60세 이상입니다. 매년 1%p 이상씩 고령 비율이 상승 중입니다.</p>
         </div>
 
         <div class="bg-white rounded-2xl shadow-lg p-6 md:p-10 border border-slate-100">
@@ -100,7 +149,7 @@ body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI",
     <section class="mb-12">
         <div class="mb-6 px-2">
             <h2 class="text-2xl font-bold text-[#1E3A8A] flex items-center gap-2"><span class="text-3xl">🏘️</span> 지역별 고령화 양극화 및 소멸 위험</h2>
-            <p class="text-slate-600 mt-2">해운대구 등 동부산권은 대규모 절대 인구에 따른 복지 수요가 문제인 반면, 원도심은 인구 유출과 고령화가 겹쳐 지역 소멸 위험이 극심합니다.</p>
+            <p class="text-slate-600 mt-2">해운대구는 절대 인구가 많고, 원도심은 상대적 고령 비율이 극심합니다.</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -109,7 +158,6 @@ body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI",
                 <div class="chart-container" style="height: 300px;">
                     <canvas id="top5Chart"></canvas>
                 </div>
-                <p class="text-sm text-slate-500 mt-4 text-center">대형 의료 시설 및 대규모 복지 인프라 확충이 시급한 지역군입니다.</p>
             </div>
 
             <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
@@ -128,7 +176,6 @@ body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI",
                         <div class="text-center mt-2 font-bold text-slate-700">동구 <span class="text-[#EF4444]">37.0%</span></div>
                     </div>
                 </div>
-                <p class="text-sm text-slate-500 mt-2 text-center">인구 규모 대비 노인 부양 부담이 전국 최고 수준으로, 찾아가는 돌봄이 필수적입니다.</p>
             </div>
         </div>
     </section>
@@ -137,30 +184,51 @@ body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI",
         <h2 class="text-2xl font-bold text-[#1E3A8A] mb-6 px-2 flex items-center gap-2"><span class="text-3xl">💡</span> 정책적 시사점 및 제언</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-slate-800 text-white rounded-2xl p-6 shadow-md border-t-4 border-[#06B6D4]">
-                <div class="text-3xl mb-3">🏢</div>
-                <h3 class="text-xl font-bold mb-2">구별 복지 인프라 차별화</h3>
-                <p class="text-slate-300 text-sm leading-relaxed">인구 절대량이 많은 해운대·진구에는 대형 시설을, 소멸 위험이 높은 원도심에는 소규모 마을 공동체 중심의 밀착형 케어 시설을 배치해야 합니다.</p>
+                <h3 class="text-xl font-bold mb-2">복지 인프라 차별화</h3>
+                <p class="text-slate-300 text-sm">지역 인구 밀도에 따른 맞춤형 케어 시설 배치가 시급합니다.</p>
             </div>
             <div class="bg-slate-800 text-white rounded-2xl p-6 shadow-md border-t-4 border-[#F97316]">
-                <div class="text-3xl mb-3">🚌</div>
-                <h3 class="text-xl font-bold mb-2">고령자 이동권 완벽 보장</h3>
-                <p class="text-slate-300 text-sm leading-relaxed">산복도로가 많은 원도심 특성을 고려하여, 초고령자의 거동을 지원하는 저상버스 확대 및 경사형 엘리베이터 설치를 가속화해야 합니다.</p>
+                <h3 class="text-xl font-bold mb-2">고령자 이동권 보장</h3>
+                <p class="text-slate-300 text-sm">원도심 경사형 엘리베이터 등 물리적 장벽 해소가 필요합니다.</p>
             </div>
             <div class="bg-slate-800 text-white rounded-2xl p-6 shadow-md border-t-4 border-[#EF4444]">
-                <div class="text-3xl mb-3">🤝</div>
-                <h3 class="text-xl font-bold mb-2">실버 경제로의 패러다임 전환</h3>
-                <p class="text-slate-300 text-sm leading-relaxed">고령층을 단순 부양의 대상이 아닌 새로운 소비층이자 노동력으로 인식하고, 시니어 경험을 활용한 맞춤형 일자리 창출 생태계를 조성해야 합니다.</p>
+                <h3 class="text-xl font-bold mb-2">실버 경제 활성화</h3>
+                <p class="text-slate-300 text-sm">고령층의 경험을 활용한 일자리 창출 생태계를 조성해야 합니다.</p>
             </div>
         </div>
     </section>
 
     <footer class="text-center text-slate-400 text-sm mt-12 pt-6 border-t border-slate-200">
-        <p>본 인포그래픽은 2015-2024 부산 인구 통계 데이터를 바탕으로 재구성되었습니다.</p>
+        <p>본 인포그래픽은 2015-2024 부산 인구 통계 데이터를 바탕으로 구성되었습니다.</p>
     </footer>
 
 </div>
 
 <script>
+// Video Modal Logic
+function openVideo() {
+    const modal = document.getElementById('videoModal');
+    const video = document.getElementById('mainVideo');
+    modal.style.display = 'flex';
+    video.play();
+}
+
+function closeVideo() {
+    const modal = document.getElementById('videoModal');
+    const video = document.getElementById('mainVideo');
+    video.pause();
+    video.currentTime = 0;
+    modal.style.display = 'none';
+}
+
+// Close modal when clicking outside content
+window.onclick = function(event) {
+    const modal = document.getElementById('videoModal');
+    if (event.target == modal) {
+        closeVideo();
+    }
+}
+
 const wrapText = (text) => {
     if (typeof text !== 'string') return text;
     if (text.length <= 16) return text;
@@ -186,11 +254,7 @@ const commonTooltipConfig = {
                 title: function(tooltipItems) {
                     const item = tooltipItems[0];
                     let label = item.chart.data.labels[item.dataIndex];
-                    if (Array.isArray(label)) {
-                      return label.join(' ');
-                    } else {
-                      return label;
-                    }
+                    return Array.isArray(label) ? label.join(' ') : label;
                 }
             }
         }
@@ -223,7 +287,6 @@ new Chart(document.getElementById('deadCrossChart'), {
                 pointBackgroundColor: '#FFFFFF',
                 pointBorderColor: '#F97316',
                 pointRadius: 5,
-                pointHoverRadius: 7,
                 yAxisID: 'y1'
             }
         ]
@@ -231,16 +294,13 @@ new Chart(document.getElementById('deadCrossChart'), {
     options: {
         maintainAspectRatio: false,
         responsive: true,
-        interaction: { mode: 'index', intersect: false },
         plugins: { ...commonTooltipConfig.plugins, legend: { position: 'bottom' } },
         scales: {
-            y: { type: 'linear', display: true, position: 'left', min: 3000000 },
-            y1: { type: 'linear', display: true, position: 'right', min: 800000, grid: { drawOnChartArea: false } }
+            y: { type: 'linear', position: 'left', min: 3000000 },
+            y1: { type: 'linear', position: 'right', min: 800000, grid: { drawOnChartArea: false } }
         }
     }
 });
-
-const proportionData = [26.6, 28.1, 29.3, 30.4, 31.3];
 
 new Chart(document.getElementById('proportionChart'), {
     type: 'line',
@@ -248,37 +308,29 @@ new Chart(document.getElementById('proportionChart'), {
         labels: years,
         datasets: [{
             label: wrapText('고령 인구 점유율 (%)'),
-            data: proportionData,
+            data: [26.6, 28.1, 29.3, 30.4, 31.3],
             borderColor: '#EF4444',
             backgroundColor: 'rgba(239, 68, 68, 0.2)',
-            borderWidth: 3,
             fill: true,
             tension: 0.3,
-            pointBackgroundColor: '#EF4444',
-            pointRadius: 6,
-            pointHoverRadius: 8
+            pointBackgroundColor: '#EF4444'
         }]
     },
     options: {
         maintainAspectRatio: false,
         responsive: true,
         plugins: { ...commonTooltipConfig.plugins, legend: { display: false } },
-        scales: {
-            y: { min: 20, max: 35, ticks: { callback: function(value) { return value + '%'; } } }
-        }
+        scales: { y: { min: 20, max: 35 } }
     }
 });
-
-const top5Labels = ['해운대구', '부산진구', '사하구', '북구', '동래구'].map(wrapText);
-const top5Data = [124191, 108753, 95735, 87830, 83383];
 
 new Chart(document.getElementById('top5Chart'), {
     type: 'bar',
     data: {
-        labels: top5Labels,
+        labels: ['해운대구', '부산진구', '사하구', '북구', '동래구'].map(wrapText),
         datasets: [{
             label: wrapText('60세 이상 인구 수'),
-            data: top5Data,
+            data: [124191, 108753, 95735, 87830, 83383],
             backgroundColor: '#1E3A8A',
             borderRadius: 4
         }]
@@ -287,10 +339,7 @@ new Chart(document.getElementById('top5Chart'), {
         indexAxis: 'y',
         maintainAspectRatio: false,
         responsive: true,
-        plugins: { ...commonTooltipConfig.plugins, legend: { display: false } },
-        scales: {
-            x: { beginAtZero: true }
-        }
+        plugins: { ...commonTooltipConfig.plugins, legend: { display: false } }
     }
 });
 
