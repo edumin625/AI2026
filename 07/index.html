@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond the Ocean, Real BUSAN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #f8fafc;
+        }
+        
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+        
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+        
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Gradient Text */
+        .text-gradient-blue {
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-pink {
+            background: linear-gradient(to right, #f472b6, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="font-bold text-xl tracking-tighter">REAL BUSAN</div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#about" class="hover:text-blue-400 transition">기획 배경</a>
+                <a href="#twotrack" class="hover:text-blue-400 transition">투트랙 전략</a>
+                <a href="#episodes" class="hover:text-blue-400 transition">오리지널 콘텐츠</a>
+                <a href="#marketing" class="hover:text-blue-400 transition">마케팅 액션</a>
+            </div>
+            <a href="#contact" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-full text-sm font-semibold transition">기획서 다운로드</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Abstract Background -->
+        <div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-blob"></div>
+            <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-pink-600 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-blob animation-delay-2000"></div>
+            <div class="absolute bottom-1/4 left-1/2 w-96 h-96 bg-purple-600 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-blob animation-delay-4000"></div>
+            <!-- Overlay image -->
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1590513689408-04fbcebd6e9b?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-20 mix-blend-luminosity"></div>
+            <div class="absolute inset-0 bg-slate-900/80"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20">
+            <div class="inline-block px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-300 text-sm font-semibold mb-6 fade-in-up">
+                2026 부산 관광 콘텐츠 마케팅 기획서
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight fade-in-up" style="transition-delay: 100ms;">
+                Beyond the Ocean,<br>
+                <span class="text-gradient-blue">Real BUSAN</span>
+            </h1>
+            <p class="text-lg md:text-2xl text-slate-300 mb-10 font-light max-w-2xl mx-auto fade-in-up" style="transition-delay: 200ms;">
+                인구수보다 관광객이 많은 도시.<br>
+                그 이면에 숨겨진 '12만 로컬 청년들의 밤'과 '한국형 해변'의 진짜 매력을 전세계에 연결합니다.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in-up" style="transition-delay: 300ms;">
+                <a href="#twotrack" class="bg-white text-slate-900 px-8 py-4 rounded-full font-bold hover:bg-slate-200 transition flex items-center justify-center">
+                    핵심 전략 보기
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Insights Section -->
+    <section id="about" class="py-24 bg-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">왜 지금, <span class="text-blue-400">새로운 부산</span>인가?</h2>
+                <p class="text-slate-400">시청자와 현지인의 댓글 데이터가 증명하는 부산 관광의 현주소</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Insight 1 -->
+                <div class="glass p-8 rounded-2xl fade-in-up">
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-400 mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">한국형 해변의 발견</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        해외 휴양지와 달리, 백사장 바로 앞에 카페, 펍, 마천루가 밀집된 번화가가 맞닿아 있는 'Korean Style Beach'의 유니크한 공간적 매력.
+                    </p>
+                </div>
+                <!-- Insight 2 -->
+                <div class="glass p-8 rounded-2xl fade-in-up" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center text-pink-400 mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">12만 유동인구, 서면</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        관광객이 몰리는 해운대/광안리와 철저히 분리되어, 저녁 시간 유동인구 전국 1위(약 12만 명)를 기록하는 찐 로컬 청년들의 중심지.
+                    </p>
+                </div>
+                <!-- Insight 3 -->
+                <div class="glass p-8 rounded-2xl fade-in-up" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center text-purple-400 mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">미식 도시로의 진화</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        과거 회와 어묵에 국한되던 식문화에서 벗어나, 글로벌 수준의 파인다이닝과 트렌디한 F&B가 결합된 완벽한 미식 여행지로의 탈바꿈.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Two-Track Section -->
+    <section id="twotrack" class="py-24 bg-slate-950 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-purple-400 font-semibold tracking-wider text-sm mb-2 block">CORE CONCEPT</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">투트랙(Two-Track) 로컬 탐험</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">
+                    글로벌 관광 특화 구역과 로컬 핫플레이스의 완벽한 분리. 두 가지 다른 얼굴의 부산을 체험하게 하는 것이 우리 마케팅의 핵심입니다.
+                </p>
+            </div>
+
+            <!-- Tab Controls -->
+            <div class="flex justify-center mb-12 fade-in-up">
+                <div class="bg-slate-800/50 p-1 rounded-full inline-flex backdrop-blur-md border border-slate-700">
+                    <button id="tab-beach" class="px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 bg-blue-600 text-white shadow-lg" onclick="switchTab('beach')">
+                        Track 1. K-Beach
+                    </button>
+                    <button id="tab-local" class="px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 text-slate-400 hover:text-white" onclick="switchTab('local')">
+                        Track 2. Deep Local
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="relative min-h-[500px] rounded-3xl overflow-hidden glass border border-slate-700 fade-in-up">
+                
+                <!-- K-Beach Content -->
+                <div id="content-beach" class="absolute inset-0 transition-opacity duration-500 opacity-100 z-10">
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1590513689408-04fbcebd6e9b?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-40 mix-blend-screen"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"></div>
+                    
+                    <div class="relative h-full flex flex-col justify-end p-8 md:p-16">
+                        <div class="inline-block px-3 py-1 bg-blue-500/20 border border-blue-400/50 text-blue-300 rounded-full text-xs font-bold mb-4 w-max">
+                            해운대 · 광안리 · 마린시티
+                        </div>
+                        <h3 class="text-4xl md:text-6xl font-bold mb-4 text-white">네온사인과<br>파도 소리의 공존</h3>
+                        <p class="text-lg text-slate-300 max-w-xl mb-8">
+                            "해변 모래사장에서 1분만 걸어 나오면 화려한 도심의 나이트라이프가 시작된다." 마천루, 광안대교 야경, 그리고 하이엔드 휴양.
+                        </p>
+                        <div class="flex gap-4">
+                            <span class="px-4 py-2 bg-slate-800/80 rounded-lg text-sm text-slate-300 backdrop-blur border border-slate-700">#마천루</span>
+                            <span class="px-4 py-2 bg-slate-800/80 rounded-lg text-sm text-slate-300 backdrop-blur border border-slate-700">#광안대교야경</span>
+                            <span class="px-4 py-2 bg-slate-800/80 rounded-lg text-sm text-slate-300 backdrop-blur border border-slate-700">#오션뷰카페</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deep Local Content -->
+                <div id="content-local" class="absolute inset-0 transition-opacity duration-500 opacity-0 pointer-events-none z-0">
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1546437315-7764d26219be?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-30 mix-blend-screen"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"></div>
+                    
+                    <div class="relative h-full flex flex-col justify-end p-8 md:p-16">
+                        <div class="inline-block px-3 py-1 bg-pink-500/20 border border-pink-400/50 text-pink-300 rounded-full text-xs font-bold mb-4 w-max">
+                            서면 2번가 · 전포동 일대
+                        </div>
+                        <h3 class="text-4xl md:text-6xl font-bold mb-4 text-white">12만 부산 청년들의<br>진짜 밤</h3>
+                        <p class="text-lg text-slate-300 max-w-xl mb-8">
+                            "관광객의 부산이 해운대라면, 부산 사람의 부산은 서면이다." 단핵화된 핵심 상권에서 만나는 스트릿 패션과 로컬 팝업스토어, 그리고 골목길 숨은 맛집들.
+                        </p>
+                        <div class="flex gap-4">
+                            <span class="px-4 py-2 bg-slate-800/80 rounded-lg text-sm text-slate-300 backdrop-blur border border-slate-700">#전포카페거리</span>
+                            <span class="px-4 py-2 bg-slate-800/80 rounded-lg text-sm text-slate-300 backdrop-blur border border-slate-700">#스트릿패션</span>
+                            <span class="px-4 py-2 bg-slate-800/80 rounded-lg text-sm text-slate-300 backdrop-blur border border-slate-700">#로컬팝업</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Original Contents (Episodes) -->
+    <section id="episodes" class="py-24 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 fade-in-up">
+                <div>
+                    <span class="text-blue-400 font-semibold tracking-wider text-sm mb-2 block">YOUTUBE & SHORTS</span>
+                    <h2 class="text-3xl md:text-4xl font-bold">세부 콘텐츠 제작 안</h2>
+                </div>
+                <p class="text-slate-400 mt-4 md:mt-0 text-sm md:text-base text-right max-w-md">
+                    글로벌 FIT 관광객과 국내 MZ세대를 동시에 사로잡을<br>3편의 오리지널 숏폼 다큐 시리즈.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- EP 01 -->
+                <div class="group cursor-pointer fade-in-up">
+                    <div class="relative overflow-hidden rounded-2xl mb-6 aspect-video bg-slate-800 border border-slate-700">
+                        <div class="absolute inset-0 bg-blue-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
+                        <div class="absolute inset-0 flex items-center justify-center z-20">
+                            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 group-hover:scale-110 transition duration-300">
+                                <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4l12 6-12 6z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-blue-400 font-bold">EP 01.</span>
+                        <span class="text-xs px-2 py-1 bg-slate-800 rounded text-slate-300">타겟: 글로벌</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-blue-400 transition">The Ultimate Korean Beach</h3>
+                    <p class="text-sm text-slate-400">호주나 미국의 끝없는 자연 해변과 대비되는 부산만의 압축적이고 스펙터클한 해변 조명. 엘시티 뷰와 광안대교 펍에서의 피맥 브이로그.</p>
+                </div>
+
+                <!-- EP 02 -->
+                <div class="group cursor-pointer fade-in-up" style="transition-delay: 100ms;">
+                    <div class="relative overflow-hidden rounded-2xl mb-6 aspect-video bg-slate-800 border border-slate-700">
+                        <div class="absolute inset-0 bg-pink-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
+                        <div class="absolute inset-0 flex items-center justify-center z-20">
+                            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 group-hover:scale-110 transition duration-300">
+                                <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4l12 6-12 6z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-pink-400 font-bold">EP 02.</span>
+                        <span class="text-xs px-2 py-1 bg-slate-800 rounded text-slate-300">타겟: 글로벌 & 국내</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-pink-400 transition">Midnight in Seomyeon</h3>
+                    <p class="text-sm text-slate-400">12만 명의 불금. 현지인 밀착 다큐멘터리로 전포~부전 일대의 골목길 숨은 맛집, LP 바 탐방 및 부산 로컬 청년들의 스트릿 인터뷰.</p>
+                </div>
+
+                <!-- EP 03 -->
+                <div class="group cursor-pointer fade-in-up" style="transition-delay: 200ms;">
+                    <div class="relative overflow-hidden rounded-2xl mb-6 aspect-video bg-slate-800 border border-slate-700">
+                        <div class="absolute inset-0 bg-purple-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
+                        <div class="absolute inset-0 flex items-center justify-center z-20">
+                            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 group-hover:scale-110 transition duration-300">
+                                <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4l12 6-12 6z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-purple-400 font-bold">EP 03.</span>
+                        <span class="text-xs px-2 py-1 bg-slate-800 rounded text-slate-300">타겟: 국내외 식도락가</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-purple-400 transition">부산 미식 타임라인: 2000 vs 2026</h3>
+                    <p class="text-sm text-slate-400">과거의 편견을 깨는 미식 여행. 정통 백년가게의 돼지국밥부터 영도의 오션뷰 카페, 전포동 글로벌 비스트로까지 먹방 스토리텔링.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marketing Strategy -->
+    <section id="marketing" class="py-24 bg-slate-950 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">온·오프라인 연계 액션</h2>
+                <p class="text-slate-400">콘텐츠 시청을 실제 방문과 체류로 전환시키는 3가지 솔루션</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Action 1 -->
+                <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800 hover:border-blue-500/50 transition duration-300 fade-in-up">
+                    <div class="text-blue-400 text-4xl font-black mb-4 opacity-50">01</div>
+                    <h4 class="text-xl font-bold mb-3">상권 연결 투어 패스</h4>
+                    <p class="text-slate-400 text-sm">낮에는 해운대 해양 액티비티, 밤에는 서면 F&B 할인을 결합한 모바일 패스로 동선을 내륙으로 유도합니다.</p>
+                </div>
+                <!-- Action 2 -->
+                <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800 hover:border-pink-500/50 transition duration-300 fade-in-up" style="transition-delay: 100ms;">
+                    <div class="text-pink-400 text-4xl font-black mb-4 opacity-50">02</div>
+                    <h4 class="text-xl font-bold mb-3">#MyRealBusan 챌린지</h4>
+                    <p class="text-slate-400 text-sm">틱톡/릴스를 통해 자신만의 '관광 핫플'과 '로컬 핫플'을 교차 편집하여 올리는 글로벌 바이럴 챌린지를 진행합니다.</p>
+                </div>
+                <!-- Action 3 -->
+                <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800 hover:border-purple-500/50 transition duration-300 fade-in-up" style="transition-delay: 200ms;">
+                    <div class="text-purple-400 text-4xl font-black mb-4 opacity-50">03</div>
+                    <h4 class="text-xl font-bold mb-3">'바가지 제로' 인증제</h4>
+                    <p class="text-slate-400 text-sm">가격 정찰제와 외국어 메뉴판을 완비한 서면/해운대 로컬 맛집에 '클린 부산' 인증 마크를 부여하여 신뢰를 구축합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / CTA -->
+    <section id="contact" class="py-20 bg-gradient-to-b from-slate-950 to-blue-900/20 border-t border-slate-800 text-center">
+        <div class="max-w-3xl mx-auto px-6 fade-in-up">
+            <h2 class="text-3xl font-bold mb-6">관광 수요 분산과 도시 브랜드 가치 상승,<br>지금 시작하세요.</h2>
+            <p class="text-slate-400 mb-10">상세한 예산안과 실행 계획이 담긴 풀 버전 기획서를 확인해보세요.</p>
+            <a href="../pdfdata/부산 관광 콘텐츠 마케팅 기획서.pdf" download class="inline-block bg-blue-600 hover:bg-blue-500 text-white px-10 py-4 rounded-full font-bold text-lg transition shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+                상세 기획서 다운로드 (PDF)
+            </a>
+            <p class="text-slate-500 text-xs mt-12">© 2026 Busan Tourism Content Marketing Project. All rights reserved.</p>
+        </div>
+    </section>
+
+    <!-- JavaScript for Interactions -->
+    <script>
+        // Intersection Observer for scroll animations (fade-in-up)
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const fadeElements = document.querySelectorAll('.fade-in-up');
+            fadeElements.forEach(el => observer.observe(el));
+        });
+
+        // Tab Switching Logic for Two-Track Section
+        function switchTab(tab) {
+            const beachTabBtn = document.getElementById('tab-beach');
+            const localTabBtn = document.getElementById('tab-local');
+            const beachContent = document.getElementById('content-beach');
+            const localContent = document.getElementById('content-local');
+
+            if (tab === 'beach') {
+                // Update Buttons
+                beachTabBtn.className = "px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 bg-blue-600 text-white shadow-lg";
+                localTabBtn.className = "px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 text-slate-400 hover:text-white";
+                
+                // Update Content Opacity & Pointer Events
+                beachContent.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+                beachContent.classList.add('opacity-100', 'z-10');
+                
+                localContent.classList.remove('opacity-100', 'z-10');
+                localContent.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+            } else if (tab === 'local') {
+                // Update Buttons
+                localTabBtn.className = "px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 bg-pink-600 text-white shadow-lg";
+                beachTabBtn.className = "px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 text-slate-400 hover:text-white";
+                
+                // Update Content Opacity & Pointer Events
+                localContent.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+                localContent.classList.add('opacity-100', 'z-10');
+                
+                beachContent.classList.remove('opacity-100', 'z-10');
+                beachContent.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+            }
+        }
+
+        // Navbar blur on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg', 'bg-slate-900/90');
+                navbar.classList.remove('glass');
+            } else {
+                navbar.classList.remove('shadow-lg', 'bg-slate-900/90');
+                navbar.classList.add('glass');
+            }
+        });
+    </script>
+</body>
+</html>
